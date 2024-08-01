@@ -1,0 +1,1 @@
+import"./chunk-TMEVGU2Q.js";var o=[{path:"",data:{title:"App"},children:[{path:"",redirectTo:"users",pathMatch:"full"},{path:"users",loadComponent:()=>import("./chunk-EU37Q622.js").then(t=>t.UsersComponent),data:{title:"Usuarios"}},{path:"photos",loadComponent:()=>import("./chunk-J4L4AVDN.js").then(t=>t.PhotosComponent),data:{title:"Fotos"}}]}];export{o as routes};
