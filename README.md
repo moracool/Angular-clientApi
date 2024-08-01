@@ -5,7 +5,7 @@ El test esta hecho en COREUI (CoreUI for Angular is a UI Component library writt
 - Boostrap
 
 Consideración General:
-- Para el listado de Fotos, no pude conseguir desde angular poder ver el contenido de una carpeta, esta tarea asumo que se esta tirando al backend, y crea un index.txt o retornaria una lista de imagenes del archivo. esta en /assets/photos/index.txt
+- Para el listado de Fotos, no pude conseguir desde angular (Client SIDE) poder ver/accesar al contenido de una carpeta, esta tarea asumo que se esta tirando al backend y crea un index.txt (o retornaria una lista de imagenes) del archivo esta en /assets/photos/index.txt
   
 
 Para Correr el proyecto seguir los siguientes pasos:
