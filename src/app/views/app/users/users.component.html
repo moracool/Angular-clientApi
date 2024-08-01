@@ -1,0 +1,261 @@
+<c-row ngPreserveWhitespaces>  
+
+    <!-- tabla -->
+      <c-col xs="12">
+        <c-card class="mb-4">
+          <c-card-header>Lista de Usuarios</c-card-header>
+          <c-card-body>         
+            <div class="table-responsive" style="overflow:auto;height: 500px;">
+              <button  cButton  [cModalToggle]="verticallyCenteredModal.id" color="success" (click)="newGetById()" >Agregar</button>              
+              <table bordered cTable  id="excel-table">
+             
+                <thead >
+                  <tr>
+                      <th scope="col" class="text-center">#</th>                    
+                      <th scope="col" class="text-center"><div class="size_350">Nombre</div></th>                     
+                      <th scope="col" class="text-center"><div class="size_200">Usuario</div></th>                     
+                      <th scope="col" class="text-center"><div class="size_120">Correo</div></th>                     
+                      <th scope="col" class="text-center"><div class="size_350">Direccion</div></th>                     
+                      <th scope="col" class="text-center"><div class="size_200">Telefono</div></th> 
+                      <th scope="col" class="text-center"><div class="size_120">Pagina Web</div></th> 
+                      <th scope="col" class="text-center"><div class="size_200">Compañia</div></th>                       
+                      <th scope="col" class="text-center"><div class="size_120">Acciones</div></th>                
+                  </tr>
+              </thead>  
+                <tbody>                                      
+                    <tr *ngFor="let row of listObjects; index as i">
+                        <th scope="row" class="text-center">{{row.id}}</th>
+                        <td >{{row.name}}</td>                   
+                        <td >{{row.username}}</td>
+                        <td >{{row.email}}</td>
+                        <td >
+                            <ul>
+                                <li>Calle: {{row.address.street}}</li>
+                                <li>Numeración: {{row.address.suite}}</li>
+                                <li>Ciudad: {{row.address.city}}</li>
+                                <li>Código Postal: {{row.address.zipcode}}</li>                            
+                                <li>GEO: LAT({{row.address.geo.lat}})  LONG({{row.address.geo.lng}}) </li>                            
+                            </ul>
+                        </td>      
+                        <td >{{row.phone}}</td>               
+                        <td >{{row.website}}</td>               
+                        <td >{{row.company.name}}</td>                                         
+                        <td class="text-center"> 
+                            <button class="btn text-center" [cModalToggle]="verticallyCenteredModal.id" (click)="newGetById(row)"><svg cIcon name="cilPencil"></svg></button>                            
+                            <button class="btn text-center" [cModalToggle]="verticallyCenteredModalDelete.id" (click)="setObjectId(row.id)"><svg cIcon name="cilTrash"></svg></button>
+                        </td>                    
+                    </tr> 
+                    <tr *ngIf="emptyData==true" >
+                        <td colspan="9" >No existen areas en la BD</td>                                
+                    </tr>
+              </tbody>
+              </table>
+            </div>         
+          </c-card-body>
+        </c-card>
+        
+      </c-col>
+</c-row>
+
+
+
+<!-- create/update -->
+<form #browserDefaultsForm="ngForm"
+(ngSubmit)="onSubmit()" 
+[formGroup]="formData"      
+class="row g-3 needs-validation"
+ngNativeValidate
+>
+<c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>{{action}} Usuario</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>  
+  <c-modal-body>  
+    <c-row> 
+        <c-col [md]="4">  
+            <label cLabel >Nombre</label><br>
+              <input cFormControl                    
+                    id="validationCustomname"                    
+                    type="text"
+                    formControlName="name"
+                    required
+              />   
+        </c-col>   
+      
+        <c-col [md]="4"> 
+            <label cLabel >Usuario</label><br>
+              <input cFormControl                    
+                    id="validationCustomuser"                    
+                    type="text"
+                    formControlName="user"
+                    required
+              />   
+        </c-col>  
+
+        <c-col [md]="4">      
+            <label cLabel >Correo</label><br>       
+            <input cFormControl                    
+                  id="validationCustomcorreo"                  
+                  type="text"
+                  formControlName="correo"
+                  required
+            />   
+        </c-col> 
+
+        <c-col [md]="4"> 
+            <label cLabel >Telefono</label><br>
+            <input cFormControl                    
+                  id="validationCustomphone"                  
+                  type="text"
+                  formControlName="phone"
+                  required
+            />   
+        </c-col> 
+
+        <c-col [md]="4"> 
+            <label cLabel >Página Web</label><br>
+            <input cFormControl                    
+                  id="validationCustomwebsite"                  
+                  type="text"
+                  formControlName="website"
+                  required
+            />   
+        </c-col> 
+
+        <c-col [md]="12" class="pt-3 border-bottom"> 
+            <label cLabel >Dirección</label>
+        </c-col>
+
+        <c-col [md]="12" class="pb-3">        
+            <c-row>
+                <c-col [md]="4">
+                    <label cLabel >Calle</label><br>
+                    
+                    <input cFormControl                    
+                        id="validationCustomstreet"                    
+                        type="text"
+                        formControlName="street"
+                        required
+                    />   
+                </c-col>   
+                <c-col [md]="4">
+                    <label cLabel >Numeración</label><br>
+                    <input cFormControl                    
+                    id="validationCustomsuite"                
+                    type="text"
+                    formControlName="suite"
+                    required
+                    />   
+                </c-col>   
+                <c-col [md]="4">
+                    <label cLabel >Ciudad</label><br>
+                    <input cFormControl                    
+                    id="validationCustomCity"                
+                    type="text"
+                    formControlName="city"
+                    required
+                    />  
+                </c-col>    
+                <c-col [md]="4">
+                    <label cLabel >Código Postal</label><br>
+                    <input cFormControl                    
+                    id="validationCustosZipcode"                
+                    type="text"
+                    formControlName="zipcode"
+                    required
+                    />  
+                </c-col>    
+                <c-col [md]="4">
+                    <label cLabel >Latitud</label><br>
+                    <input cFormControl                    
+                    id="validationCustolat"                
+                    type="text"
+                    formControlName="lat"
+                    required
+                    />  
+                </c-col>    
+                <c-col [md]="4">
+                    <label cLabel >Longitud</label><br>
+                    <input cFormControl                    
+                    id="validationCustolng"                
+                    type="text"
+                    formControlName="lng"
+                    required
+                    />      
+                </c-col> 
+            </c-row>
+        </c-col>   
+        
+        <c-col [md]="12"  class="mb-0 border-bottom"> 
+            <label cLabel >Compañia</label>
+        </c-col> 
+        
+        <c-col [md]="12" class="mb-3">    
+            <c-row>
+                    <c-col [md]="4"> 
+                        <label cLabel >Nombre</label><br>
+                        <input cFormControl                    
+                            id="validationCustomcompany_name"                            
+                            type="text"
+                            formControlName="company_name"
+                            required
+                        />   
+                    </c-col> 
+
+                    <c-col [md]="4"> 
+                        <label cLabel >Slogan</label><br>
+                        <input cFormControl                    
+                            id="validationCustomcatchPhrase"                            
+                            type="text"
+                            formControlName="catchPhrase"
+                            required
+                        />   
+                    </c-col> 
+
+                    <c-col [md]="4"> 
+                        <label cLabel >Bs</label><br>
+                        <input cFormControl                    
+                            id="validationCustombs"                            
+                            type="text"
+                            formControlName="bs"
+                            required
+                        />   
+                    </c-col> 
+            </c-row>
+        </c-col>   
+    </c-row>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="verticallyCenteredModal.id" #closebutton cButton color="secondary">
+      Cerrar
+    </button>
+    <button cButton  color="success" type="submit"> Enviar</button>
+    
+  </c-modal-footer>
+</c-modal>
+
+</form>
+
+<!-- delete -->
+<c-modal #verticallyCenteredModalDelete alignment="center"  id="verticallyCenteredModalDelete" >
+<c-modal-header>
+<h5 cModalTitle>Eliminar</h5>
+<button [cModalToggle]="verticallyCenteredModalDelete.id" #closebuttonDelete cButtonClose></button>
+</c-modal-header>
+
+<c-modal-body>
+    <c-col xs="12" sm="12" md="12" lg="12">
+        <div class="mb-3">                
+        Esta acción ELIMINARÁ el usuario del sistema.<br><br>
+        <strong>Esta usted de acuerdo con este proceso?</strong>
+        </div>
+    </c-col>  
+</c-modal-body>
+<c-modal-footer>
+
+<button cButton class="btt_azul"  color="secondary" type="submit" (click)="deleteUser()">
+<svg cIcon name="cilTrash"></svg>&nbsp;Eliminar</button>
+</c-modal-footer>
+
+</c-modal>

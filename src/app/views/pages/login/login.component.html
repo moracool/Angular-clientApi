@@ -1,0 +1,51 @@
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>              
+              <form [formGroup]="loginForm" cForm autocomplete="off">
+                <h1>Inicio de Sesión</h1>
+                <p class="text-body-secondary">Ingresa tus datos para continuar!</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="Usuario" required  cFormControl placeholder="Usuario"  formControlName="user"/>
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl required 
+                    placeholder="Contraseña"
+                    type="password"
+                    formControlName="password"
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="login()">
+                      Ingresar
+                    </button>
+                  </c-col>                
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-5">
+            <c-card-body class="text-center align-items-center">
+              <div>
+                <h2>Prueba Técnica<br>Analista programador</h2>                
+                <h3 class="mt-5 ">Luis Mora-2024</h3>
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
